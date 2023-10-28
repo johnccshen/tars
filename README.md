@@ -1,7 +1,9 @@
-install dependency
-download model from hugguing face
-https://huggingface.co/TheBloke/Llama-2-7b-Chat-GGUF
+Download model from: https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-GGUF/blob/main/mistral-7b-openorca.Q5_K_S.gguf
+Put the model under /data/llm/{GGUF model}
 
-put the models under models/llama
+Install dependecy
+```Bash
+pip install -r requirement.txt
+```
 
-Run the WebUI: chainlit run app.py -w
+
