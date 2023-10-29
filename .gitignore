@@ -3,4 +3,6 @@ __pycache__/*
 .chainlit
 chainlit.md
 *.gguf
-confluence/*
+doc/*
+.cred/*
+src/__pycache__/*
