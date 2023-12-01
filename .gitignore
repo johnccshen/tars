@@ -3,7 +3,8 @@ __pycache__/*
 .chainlit
 chainlit.md
 *.gguf
-.cred
-confluence/*
+doc/*
+.cred/*
+src/__pycache__/*
 pyproject.toml
 poetry.lock
