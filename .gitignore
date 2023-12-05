@@ -6,5 +6,4 @@ chainlit.md
 doc/*
 .cred/*
 src/__pycache__/*
-pyproject.toml
-poetry.lock
+models/*
