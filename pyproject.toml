@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "tars"
+version = "0.1.0"
+description = ""
+authors = ["Sean Chang <chungsean74@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+atlassian-python-api = "^3.41.4"
+markdownify = "0.11.6"
+chromadb = "^0.4.18"
+pypdf = "^3.17.1"
+sentence-transformers = "^2.2.2"
+huggingface-hub = "^0.19.4"
+ctransformers = "^0.2.27"
+llama-cpp-python = "^0.2.20"
+llama-index = "0.8.25"
+langchain = "^0.0.345"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
