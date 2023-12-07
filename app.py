@@ -1,8 +1,8 @@
 import argparse
-from llama_cpp import Llama
+from query_doc import query_document
 
-MISTRAL_7B_OPENORCA_Q5 = '/data/llm/mistral-7b-openorca.Q5_K_S.gguf'
-
+MISTRAL_7B_OPENORCA_Q5 = 'models/TheBloke_Mistral-7B-OpenOrca-GGUF/mistral-7b-openorca.Q5_K_S.gguf'
+BGE_LARGE_EN_V1_5 = 'models/BAAI_bge-large-en-v1.5'
 
 # following message comes from https://github.com/fastai/lm-hackers/blob/main/lm-hackers.ipynb
 system_msg = """
@@ -22,42 +22,30 @@ Don't be verbose in your answers, but do provide details and examples where it m
 minimise vertical space, and do not include comments or docstrings; you do not need to follow PEP8, 
 since your users' organizations do not do so.
 """
-# system_msg = ""
-
-
-
-
-def run(prompt, model, verbose):
-    llm = Llama(model_path=model, verbose=verbose)
-    print("asking...")
-    outputs = llm(prompt, max_tokens=1024, stop=["Q:", "\n"], echo=True)
-    return outputs
-
-    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-m", "--model", type=str, default=MISTRAL_7B_OPENORCA_Q5)
-    parser.add_argument("-vv", "--verbose", type=bool, action=argparse.BooleanOptionalAction)
+    parser.add_argument("-e", "--embedding", type=str, default=BGE_LARGE_EN_V1_5)
+    parser.add_argument("-vv", "--verbose", type=bool, default=False, action=argparse.BooleanOptionalAction)
 
     args = parser.parse_args()
-    
-    query_template = "Question: {query} Answer: "
-    query = system_msg
+
     print("\n")
     print("Hint: Type Enter to exit!")
     print(f"Hint: Use model: {args.model}")
+    print(f"Hint: Use embedding: {args.embedding}")
     print("\n")
 
     while True:
         print("Enter your question here:")
-        template = query_template
+        # Example question: Briefly list all branch name and what they are processed in traumatic spine injury cycles
         _input = input()
-        query += template.replace("{query}", _input)
         if not _input:
             break
-        resp = run(query, args.model, args.verbose)
-        print(resp["choices"][0].get("text"))
+        print('\n')
+        resp = query_document(_input, args.verbose)
+        print(resp)
         print("\n")
 
     print("Close session! Thank you!")
