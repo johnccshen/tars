@@ -1,23 +1,22 @@
 import warnings
 warnings.filterwarnings('ignore')
-from llama_index import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
 from llama_index.llms import LlamaCPP
 from llama_index.llms.llama_utils import messages_to_prompt, completion_to_prompt
 from langchain.embeddings import HuggingFaceEmbeddings
+from src.database import Database
+
+doc_name = "Traumatic Spine Injury"
 
 def query_document(prompt: str, verbose: bool) -> str:
-    # Load the document, split it into chunks, embed each chunk and load it into the vector store.
-    documents = SimpleDirectoryReader(
-            input_files=['doc/Traumatic Spine Injury.pdf']
-        ).load_data()
     # load llama model file and embed model
     llm = LlamaCPP(
-        # You can pass in the URL to a GGML model to download it automatically
+        # You can pass in the URL to a GGUF model to download it automatically
         # model_url='https://huggingface.co/TheBloke/Mistral-7B-OpenOrca-GGUF/resolve/main/mistral-7b-openorca.Q5_K_S.gguf?download=true'
         model_url=None,
         # optionally, you can set the path to a pre-downloaded model instead of model_url
         model_path='models/TheBloke_Mistral-7B-OpenOrca-GGUF/mistral-7b-openorca.Q5_K_S.gguf',
         temperature=0.1,
+        # determine the maximum input token length
         max_new_tokens=256,
         # llama2 has a context window of 4096 tokens, but we set it lower to allow for some wiggle room
         context_window=2048,
@@ -34,14 +33,9 @@ def query_document(prompt: str, verbose: bool) -> str:
     # Load embed model from Internet
     # embed_model = HuggingFaceEmbeddings(model_name="BAAI/bge-large-en-v1.5")
     # Load embed model from local
-    embed_model = HuggingFaceEmbeddings(model_name="models/BAAI_bge-large-en-v1.5")
+    embed_model = HuggingFaceEmbeddings(model_name="BAAI/bge-large-en-v1.5", cache_folder="models")
 
-    # create a service context
-    service_context = ServiceContext.from_defaults(chunk_size=1024, chunk_overlap=64,
-                                                llm=llm,embed_model=embed_model)
-    # create vector store index
-    index = VectorStoreIndex.from_documents(documents, service_context=service_context)
-
+    index= Database().embed_document(doc_name, llm, embed_model)
     # set up query engine
     query_engine = index.as_query_engine()
     response = query_engine.query(prompt)

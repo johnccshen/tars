@@ -5,6 +5,10 @@ description = ""
 authors = ["Sean Chang <chungsean74@gmail.com>"]
 readme = "README.md"
 
+packages = [
+    {include = "src"}
+]
+
 [tool.poetry.dependencies]
 python = "^3.10"
 atlassian-python-api = "^3.41.4"
@@ -17,6 +21,7 @@ ctransformers = "^0.2.27"
 llama-cpp-python = "^0.2.20"
 llama-index = "0.8.25"
 langchain = "^0.0.345"
+accelerate = "^0.25.0"
 
 
 [build-system]

@@ -2,10 +2,9 @@ import argparse
 from query_doc import query_document
 
 MISTRAL_7B_OPENORCA_Q5 = 'models/TheBloke_Mistral-7B-OpenOrca-GGUF/mistral-7b-openorca.Q5_K_S.gguf'
-
+BGE_LARGE_EN_V1_5 = 'models/BAAI_bge-large-en-v1.5'
 
 # following message comes from https://github.com/fastai/lm-hackers/blob/main/lm-hackers.ipynb
-# Currently, the system_msg is not used
 system_msg = """
 You are an autoregressive language model that has been fine-tuned with instruction-tuning and RLHF. 
 You carefully provide accurate, factual, thoughtful, nuanced answers, and are brilliant at reasoning. 
@@ -27,6 +26,7 @@ since your users' organizations do not do so.
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-m", "--model", type=str, default=MISTRAL_7B_OPENORCA_Q5)
+    parser.add_argument("-e", "--embedding", type=str, default=BGE_LARGE_EN_V1_5)
     parser.add_argument("-vv", "--verbose", type=bool, default=False, action=argparse.BooleanOptionalAction)
 
     args = parser.parse_args()
@@ -34,16 +34,17 @@ if __name__ == "__main__":
     print("\n")
     print("Hint: Type Enter to exit!")
     print(f"Hint: Use model: {args.model}")
+    print(f"Hint: Use embedding: {args.embedding}")
     print("\n")
 
     while True:
         print("Enter your question here:")
-        # Example question: Briefly list all branch name and what they are processed in traumatic spine injury cycles?
+        # Example question: Briefly list all branch name and what they are processed in traumatic spine injury cycles
         _input = input()
         if not _input:
             break
+        print('\n')
         resp = query_document(_input, args.verbose)
-        print("\n")
         print(resp)
         print("\n")
 
