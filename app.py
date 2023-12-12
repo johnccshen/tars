@@ -44,7 +44,7 @@ if __name__ == "__main__":
         if not _input:
             break
         print('\n')
-        resp = query_document(_input, args.verbose)
+        resp = query_document(_input)
         print(resp)
         print("\n")
 
