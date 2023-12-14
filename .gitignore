@@ -1,4 +1,5 @@
 .idea
+.env
 __pycache__/*
 .chainlit
 chainlit.md
@@ -6,5 +7,6 @@ chainlit.md
 doc/*
 .cred/*
 chroma/*
+faiss/*
 src/__pycache__/*
 models/*
