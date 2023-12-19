@@ -1,12 +1,15 @@
 [tool.poetry]
 name = "tars"
 version = "0.1.0"
-description = ""
+description = "A chatbot that use OpenAI model to answer question about Confluence document"
 authors = ["Sean Chang <chungsean74@gmail.com>"]
 readme = "README.md"
+license = "MIT"
+repository = "https://github.com/johnccshen/tars"
 
 packages = [
-    {include = "src"}
+    {include = "src"},
+    {include = "model"}
 ]
 
 [tool.poetry.dependencies]
@@ -14,22 +17,13 @@ python = "^3.10"
 atlassian-python-api = "^3.41.4"
 markdownify = "0.11.6"
 chromadb = "^0.4.18"
-sentence-transformers = "^2.2.2"
-huggingface-hub = "^0.19.4"
-ctransformers = "^0.2.27"
-llama-cpp-python = "^0.2.20"
-llama-index = "0.8.25"
 langchain = "^0.0.345"
-accelerate = "^0.25.0"
-bitsandbytes = "^0.41.3"
-xformers = "^0.0.23"
-transformers = "^4.35.2"
 unstructured = "^0.11.2"
 markdown = "^3.5.1"
 tiktoken = "^0.5.2"
-numexpr = "^2.8.8"
-faiss-cpu = "^1.7.4"
 pandas = "^2.1.4"
+openai = "^1.5.0"
+faiss-cpu = "^1.7.4"
 
 
 [build-system]

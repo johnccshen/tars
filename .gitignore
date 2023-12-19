@@ -9,4 +9,5 @@ doc/*
 chroma/*
 faiss/*
 src/__pycache__/*
-models/*
+model/__pycache__/*
+log/*
